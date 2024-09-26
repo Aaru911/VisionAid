@@ -12,7 +12,7 @@ const fetchData = async () => {
 
 const sendFile= async (formData) =>{
     try{
-        await axios.post(process.env.REACT_APP_SERVER_API+'/upload',formData);
+        await axios.post(process.env.REACT_APP_SERVER_API+'upload',formData);
     }catch(error){
         console.log(error);
     }
