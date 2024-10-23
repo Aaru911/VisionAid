@@ -1,24 +1,11 @@
 .App {
   font-family: sans-serif;
-  text-align: left;
+
+}
+.head{
+  display: flex;
 }
 .body{
   font-family: sans-serif;
   text-align: center;
-}
-
-.info{
-  display: block;
-}
-.mob_info{
-  display: none;
-}
-
-@media(max-width:300px) {
-  .info{
-    display: none;
-  }
-  .mob_info{
-    display: block;
-  }
 }

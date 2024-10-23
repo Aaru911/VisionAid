@@ -1,0 +1,38 @@
+.logo {
+    font-family: Archivo;
+    margin-top: 10px !important;
+    margin-bottom:20px;
+    color: black;
+}
+.link{
+    text-decoration: none;
+}
+.info {
+    display: block;
+}
+
+.mob_info {
+    display: none;
+}
+
+@media(max-width:300px) {
+    .info {
+        display: none;
+    }
+
+    .mob_info {
+        display: block;
+    }
+}
+
+@font-face {
+    font-family: 'Archivo';
+    src: url(../../public/Archivo.ttf);
+    font-weight: 430;
+    font-stretch: 80%;
+}
+
+.Archivo {
+    font-family: Archivo;
+    margin: 0;
+}

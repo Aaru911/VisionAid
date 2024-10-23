@@ -1,13 +1,15 @@
 import * as React from 'react';
-import "../styles.css";
+import "./home.css";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 import apis from '../apis/apis'
-import axios from 'axios';
+
 //UI & Icons
 import { Button } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Avatar from '@mui/material/Avatar';
+
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -23,17 +25,24 @@ const VisuallyHiddenInput = styled('input')({
 //code
 const home = () => {
   const [title, setTitle] = useState('')
+  const [aiResponse, setResponse] = useState('');
   //basic function
   const loadTitle = async () => {
     const data = await apis.fetchData();
     setTitle(data.data.title)
   };
 
+  const loadAI=async(formData)=>{
+    const data=await apis.sendFile(formData);
+    setResponse(data)
+  };
+
   const sendFile=(e)=>{
-    if(e.target.files[0].type=='image/heic'||e.target.files[0].type=='image/jpeg'||e.target.files[0].type=='image/png'||e.target.files[0].type=="application/pdf"){
+    if(e.target.files[0].type=="application/pdf"){
       const formData = new FormData();
       formData.append('file',e.target.files[0]);
-      apis.sendFile(formData);
+      console.log("API Request Sent");
+      loadAI(formData)
     }
     else{
       alert("Please Upload PDF Other Types Are Not supported")
@@ -49,7 +58,10 @@ const home = () => {
 
   return (
     <div className="App">
-      <Link to='/welcome'><h1>{title}</h1></Link>
+      <div className='head'>
+        <Avatar alt="Remy Sharp" src={process.env.PUBLIC_URL + "/Image.png"} sx={{ width: 56, height: 56 }}/>
+        <Link className="link" to='/welcome'><h1 className="logo" >{title}</h1></Link>
+      </div>
       <h2 className="info">Start Learning New Things With AI Tools</h2>
       <h3 className="mob_info">Mobile View</h3>
       <br />
@@ -68,7 +80,10 @@ const home = () => {
           single
         />
       </Button>
+      <br/>
+      <br/>
      </div>
+     <p style={{ whiteSpace: 'pre-wrap' }}>{aiResponse}</p>
     </div>
   );
 
